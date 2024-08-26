@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,15 +8,22 @@
     <script src="rps_script.js"></script>
     <link rel="stylesheet" href="rps_style.css">
 </head>
+
 <body>
     <header class="header-container">
         <h1>ROCK PAPER SCISSORS</h1>
         <div class="score-container">
-            <p class="score">Player : </p>
-            <p class="score">Computer : </p>
+            <div class="score-small">
+                <p class="score">Player : </p>
+                <p id="playerscore">0</p>
+            </div>
+            <div class="score-small">
+                <p class="score">Computer : </p>
+                <p id="compscore">0</p>
+            </div>
         </div>
         <div class="button-class">
-            <button> Rock</button> 
+            <button> Rock</button>
             <button>Paper</button>
             <button>Scissors</button>
         </div>
@@ -23,4 +31,5 @@
         <button class="play" onclick="playGame()"> PLAY </button>
     </header>
 </body>
+
 </html>
