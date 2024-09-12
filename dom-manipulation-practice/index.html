@@ -8,7 +8,7 @@
     <script src="./script.js"></script>
 </head>
 <body>
-    <div>
+    <div class="first-container">
         <p>Button to test subscription state change:</p>
         <button class="btn-subscribe" onclick="subscribeAction()">Subscribe</button>
         <p>Enter a value for bid:</p>
@@ -17,6 +17,21 @@
         <button class="btn-calculate" onclick="calculateTotal()">Calculate</button>
         <p class="p-calculate"></p>
     </div>
-    
+    <div class="calc-cont">
+        <ul class="num-cont">
+            <li><button onclick="selectNum()">1</button></li>
+            <li><button>2</button></li>
+            <li><button>3</button></li>
+            <li><button>4</button></li>
+            <li><button>5</button></li>
+            <li><button>6</button></li>
+            <li><button>7</button></li>
+            <li><button>8</button></li>
+            <li><button>9</button></li>
+            <li><button>-</button></li>
+            <li><button>0</button></li>
+            <li><button>=</button></li>
+        </ul>
+    </div>
 </body>
 </html>
