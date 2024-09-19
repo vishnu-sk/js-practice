@@ -2,10 +2,15 @@
 //  let computerChoice = getComputerChoice();
 let playerScore = 0;
 let computerScore = 0;
-
-function getPlayerChoice() {
-    return prompt("What do you want to choose? Rock, Paper Scissors");
-}
+const rock = document.getElementById("rock");
+const paper = document.getElementById("paper");
+const scissors = document.getElementById("scissors");
+const c = document.querySelector(".button-class");
+c.addEventListener("click",(e)=>{playRound(e.target.id);})
+// rock.addEventListener("click", getPlayerChoice);
+// function getPlayerChoice(e) {
+//     playRound(e);
+// }
 function getComputerChoice() {
     let randInt = Math.random();
     if (randInt <= 0.33) {
@@ -39,24 +44,21 @@ function selectWinner(player, comp) {
         else return -1;
     }
 }
-function playRound() {
-    let outcome = selectWinner(getPlayerChoice(), getComputerChoice());
+function playRound(playerChoice) {
+    // let outcome = selectWinner(getPlayerChoice(), getComputerChoice());
+    let outcome = selectWinner(playerChoice, getComputerChoice());
     if (outcome == 1) {
         playerScore++;
     }
     else if (outcome == -1) {
         computerScore++;
     }
-    document.getElementById("playerscore").innerHTML = playerScore;
-    document.getElementById("compscore").innerHTML = computerScore;
+    document.getElementById("playerscore").innerText = playerScore;
+    document.getElementById("compscore").innerText = computerScore;
 }
 function playGame() {
     playerScore = 0; computerScore = 0;
-    for (i = 0; i < 2; i++) {
-        playRound();
-
-        console.log(playerScore + " x " + computerScore);
-    }
+    
     console.log("Player score: " + playerScore);
     console.log("Computer score: " + computerScore);
     if (playerScore > computerScore) {
