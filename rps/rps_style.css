@@ -27,7 +27,7 @@ h1 {
 }
 
 button {
-    width: 15%;
+    width: 25%;
     background-color: rgb(38, 94, 179);
     color: rgb(237, 244, 255);
     border-radius: 8px; border: 1px solid rgb(38, 94, 179);
@@ -42,6 +42,12 @@ button {
  .score-small{
     padding: 25px;
 } 
+.choice-cont{
+    padding: 20px 0 0 0;
+    display: flex;
+    justify-content: space-around;
+
+}
 .score{display: inline;}
 #playerscore{display: inline;}
 #compscore{display: inline;}
