@@ -10,17 +10,12 @@ console.log(elem);
 elem.addEventListener("click", () => {
   promptEnter(cont);
 });
-MaxGridElem = rowSize * rowSize;
-//adding divs to container
-// for (let i = 0; i < MaxGridElem; i++) {
-//   let elem = document.createElement("div");
-//   cont.appendChild(elem);
-//   elem.setAttribute("class", "div-block");
-// }
 
+MaxGridElem = rowSize * rowSize;
 addNNoOfChildren(cont, rowSize * rowSize);
-setGridStyle();
+
 //adding style to child divs and cont divs
+setGridStyle();
 cont.style.display = "flex";
 cont.style.flexWrap = "wrap";
 CreateEventListeners();
@@ -37,16 +32,13 @@ function setGridStyle() {
   [...divelem].forEach(
     function (element) {
       Object.assign(element.style, styleDiv);
-    } // element.addEventListener("mouseenter", ()=>{
-    //     element.style.backgroundColor = "blue";
-    // });
+    } 
   );
 }
 
 function CreateEventListeners() {
   let divelem = document.querySelectorAll(".div-block");
   cont.addEventListener("mouseover", (e) => {
-    // console.log(e.target);
     if (e.target.className == "grid-container"){}
     else {
       e.target.style.backgroundColor = colorGenerator();
@@ -90,6 +82,7 @@ function promptEnter(elem) {
   setGridStyle();
   CreateEventListeners();
 }
+
 function colorGenerator(){
     let r = Math.floor(Math.random()*255);
     let g = Math.floor(Math.random()*255);
