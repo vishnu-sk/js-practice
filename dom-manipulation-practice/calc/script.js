@@ -1,11 +1,18 @@
 const buttons = document.getElementsByClassName("button-cont")[0];
-buttons.addEventListener("click", (e) => {
+const ops = document.querySelectorAll(".operator");
+var arr = [];
+var text = {text: ""};
+var calcVars = {first: "", second: "", operator: ""};
+
+buttons.addEventListener("click", e => {
   execute1(e);
 });
-
-var arr = [];
-var text = { text: "" };
-var calcVars = { first: "", second: "", operator: "" };
+if (calcVars.first == "") {
+  console.log(calcVars);
+  ops.forEach(button => {
+    button.disabled = true;
+  });
+}
 
 function execute1(e) {
   if (e.target.id != "") {
@@ -47,6 +54,9 @@ function UIText(key, text) {
       case "divide":
         key = "/";
         break;
+      case "equal":
+        key = "=";
+        break;
       default:
     }
   }
@@ -60,6 +70,12 @@ function mathParser(val) {
     if (!operatorPressed(val)) {
       setNumbers(val, calcVars, "first");
       updateUI(calcVars.first);
+      if (ops[0].disabled === true) {
+        console.log("Enabled the operator buttons");
+        ops.forEach(button => {
+          button.disabled = false;
+        });
+      }
     } else {
       calcVars.operator = val;
     }
@@ -68,13 +84,19 @@ function mathParser(val) {
       setNumbers(val, calcVars, "second");
       updateUI(calcVars.second);
     } else {
-      console.log(
-        calcVars.first + " " + calcVars.second + " " + performOperation(val)
-      );
-      calcVars.first = performOperation(val);
-      calcVars.second = "";
-      calcVars.operator = "";
-      updateUI(calcVars.first);
+      if (calcVars.second != "") {
+        console.log(
+          calcVars.first +
+            " " +
+            calcVars.second +
+            " " +
+            performOperation(calcVars.operator)
+        );
+        calcVars.first = performOperation(calcVars.operator);
+        calcVars.second = "";
+        calcVars.operator = val;
+        updateUI(calcVars.first);
+      }
     }
   }
 
@@ -92,6 +114,8 @@ function performOperation(key) {
       return multiply(calcVars.first, calcVars.second);
     case "divide":
       return divide(calcVars.first, calcVars.second);
+    case "equal":
+
     default:
       performOperation(calcVars.operator);
   }
