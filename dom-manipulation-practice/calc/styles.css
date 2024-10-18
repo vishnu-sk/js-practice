@@ -1,7 +1,7 @@
 body{
     height: 50vh;
     width: 50vw;
-    margin: 0 auto;
+    margin: 20% auto;
 
 }
 
@@ -19,9 +19,35 @@ body{
     height: 100%;
     display: grid;
     grid-template-columns: 22% 22% 22% 22%;
-    grid-template-rows: 22% 22% 22% 22%;
+    grid-template-rows: 17% 17% 17% 17% 17%;
     gap: 10px;
     place-content: center;
     align-items: stretch;
     padding: 10px;
+}
+
+button{
+    border: none;
+    border-radius: 5px;
+    box-shadow:inset 1px 1px 10px 1px rgb(216, 211, 211);
+}
+
+.disp-cont{
+    background-color: grey;
+    width: calc(100% - 15px);
+    margin: 10px 0;
+    height: 4.5em;
+    border-radius: 5px;
+    padding: 5px;
+    box-sizing: border-box;
+}
+
+.operator{
+    background-color:dodgerblue;
+    color: black;
+    box-shadow:inset 1px 1px 10px 1px rgb(76, 118, 235);
+    &:hover{
+        background-color: chocolate;
+        box-shadow:none;
+    }
 }
