@@ -1,6 +1,7 @@
 const buttons = document.getElementsByClassName("button-cont")[0];
 const ops = document.querySelectorAll(".operator");
-var arr = [];
+var first = "",
+  second = "";
 var text = {text: ""};
 var calcVars = {first: "", second: "", operator: ""};
 
@@ -66,7 +67,43 @@ function UIText(key, text) {
 }
 
 function mathParser(val) {
-  if (calcVars.operator === "") {
+  // if (calcVars.operator === "") {
+  //   if (!operatorPressed(val)) {
+  //     setNumbers(val, calcVars, "first");
+  //     updateUI(calcVars.first);
+  //     if (ops[0].disabled === true) {
+  //       console.log("Enabled the operator buttons");
+  //       ops.forEach(button => {
+  //         button.disabled = false;
+  //       });
+  //     }
+  //   } else {
+  //     calcVars.operator = val;
+  //   }
+  // } else {
+  //   if (!operatorPressed(val)) {
+  //     setNumbers(val, calcVars, "second");
+  //     updateUI(calcVars.second);
+  //   } else {
+  //     if (calcVars.second != "") {
+  //       console.log(
+  //         calcVars.first +
+  //           " " +
+  //           calcVars.second +
+  //           " " +
+  //           performOperation(calcVars.operator)
+  //       );
+  //       calcVars.first = performOperation(calcVars.operator);
+  //       calcVars.second = "";
+  //       calcVars.operator = val;
+  //       updateUI(calcVars.first);
+  //     }
+  // }
+  // }
+
+  // //updateUI(UIText(val, text));
+
+  if (first === "") {
     if (!operatorPressed(val)) {
       setNumbers(val, calcVars, "first");
       updateUI(calcVars.first);
@@ -78,29 +115,19 @@ function mathParser(val) {
       }
     } else {
       calcVars.operator = val;
+      first = calcVars.first;
     }
   } else {
     if (!operatorPressed(val)) {
       setNumbers(val, calcVars, "second");
       updateUI(calcVars.second);
     } else {
-      if (calcVars.second != "") {
-        console.log(
-          calcVars.first +
-            " " +
-            calcVars.second +
-            " " +
-            performOperation(calcVars.operator)
-        );
-        calcVars.first = performOperation(calcVars.operator);
-        calcVars.second = "";
-        calcVars.operator = val;
-        updateUI(calcVars.first);
-      }
+      calcVars.first = performOperation(calcVars.operator);
+      updateUI(calcVars.first);
+      calcVars.second = "";
+      calcVars.operator = val;
     }
   }
-
-  //updateUI(UIText(val, text));
 }
 
 function performOperation(key) {
