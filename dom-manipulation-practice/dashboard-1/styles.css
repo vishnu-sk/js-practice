@@ -1,0 +1,48 @@
+@font-face {
+    font-family: "NewAmsterdam";
+    src: url('./assets/New_Amsterdam/NewAmsterdam-Regular.ttf') format('truetype');
+    
+}
+
+@font-face {
+    font-family: 'Roboto';
+    src: url('./assets/Roboto/Roboto-Regular.ttf') format('truetype');
+    font-weight: 500;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'Roboto';
+    src: url('./assets/Roboto/Roboto-Thin.ttf') format('truetype');
+    font-weight:100;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'Roboto';
+    src: url('./assets/Roboto/Roboto-Light.ttf') format('truetype');
+    font-weight:300;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'Roboto';
+    src: url('./assets/Roboto/Roboto-Medium.ttf') format('truetype');
+    font-weight:600;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'Roboto';
+    src: url('./assets/Roboto/Roboto-Bold.ttf') format('truetype');
+    font-weight: 800;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'Roboto';
+    src: url('./assets/Roboto/Roboto-Black.ttf') format('truetype');
+    font-weight: 900;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'Roboto';
+    src: url('./assets/Roboto/Roboto-Italic.ttf') format('truetype');
+    font-weight: 500;
+    font-style: italic;
+}
