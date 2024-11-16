@@ -239,3 +239,20 @@ input{
     box-shadow: 0px 0px 25px 1px rgba(53, 157, 226, 0.484);
   }
 }
+
+.data-cont{
+  display: grid;
+  grid-template-columns: repeat(7,14.28%);
+}
+
+.project-board-cont{
+  grid-column: 1/span 5;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  background-color: blue;
+}
+
+.notification-sidebar-cont{
+  grid-column: 6/8;
+  background-color: yellow;
+}
