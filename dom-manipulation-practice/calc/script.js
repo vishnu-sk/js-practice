@@ -3,7 +3,7 @@ const ops = document.querySelectorAll(".operator");
 var first = "",
   second = "";
 var text = {text: ""};
-let specialChars = ["modulus","negative","clear","backspace"];
+let specialChars = ["modulus", "negative", "clear", "backspace"];
 var calcVars = {first: "", second: "", operator: ""};
 
 buttons.addEventListener("click", e => {
@@ -34,7 +34,6 @@ function numberGenerator(key, number) {
 }
 
 function setNumbers(key, calcVariables, firstSecond) {
-  
   if (firstSecond === "first") {
     calcVariables.first = numberGenerator(key, calcVariables.first);
   } else if (firstSecond === "second") {
@@ -104,7 +103,7 @@ function mathParser(val) {
   // }
 
   // //updateUI(UIText(val, text));
-  
+
   if (first === "") {
     if (!operatorPressed(val)) {
       setNumbers(val, calcVars, "first");
@@ -125,10 +124,11 @@ function mathParser(val) {
       updateUI(calcVars.second);
     } else {
       console.log(calcVars, val);
-      if(val != "" && calcVars.second != "")
-      {calcVars.first = performOperation(calcVars.operator);
-      console.log(calcVars);
-      updateUI(calcVars.first);}
+      if (val != "" && calcVars.second != "") {
+        calcVars.first = performOperation(calcVars.operator);
+        console.log(calcVars);
+        updateUI(calcVars.first);
+      }
       calcVars.second = "";
       if (val == "equal") {
         val = "";

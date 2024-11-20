@@ -29,7 +29,27 @@ body{
 button{
     border: none;
     border-radius: 5px;
-    box-shadow:inset 1px 1px 10px 1px rgb(216, 211, 211);
+    box-shadow:inset 1px 1px 10px 1px rgb(89, 166, 218);
+    background-color: lightblue;
+}
+
+button:hover{
+    background-color: lightcoral;
+    box-shadow: none;
+    color: aliceblue;
+    font-weight: 900;
+}
+
+.operator:disabled{
+    background-color: lightgray;
+    box-shadow: none;
+}
+
+.operator:disabled:hover{
+    background-color: lightgray;
+    cursor: not-allowed;
+    color: unset;
+    font-weight: unset;
 }
 
 .disp-cont{
