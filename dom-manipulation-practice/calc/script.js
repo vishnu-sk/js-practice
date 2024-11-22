@@ -103,39 +103,46 @@ function mathParser(val) {
   // }
 
   // //updateUI(UIText(val, text));
-
-  if (first === "") {
-    if (!operatorPressed(val)) {
-      setNumbers(val, calcVars, "first");
-      updateUI(calcVars.first);
-      if (ops[0].disabled === true) {
-        console.log("Enabled the operator buttons");
-        ops.forEach(button => {
-          button.disabled = false;
-        });
-      }
-    } else {
-      calcVars.operator = val;
-      first = calcVars.first;
-    }
+  if (val == "clear") {
+    calcVars["first"] = "";
+    calcVars["second"] = "";
+    calcVars["operator"] = "";
+    console.log("Cleared!!")
+    updateUI("-----");
   } else {
-    if (!operatorPressed(val)) {
-      setNumbers(val, calcVars, "second");
-      updateUI(calcVars.second);
-    } else {
-      console.log(calcVars, val);
-      if (val != "" && calcVars.second != "") {
-        calcVars.first = performOperation(calcVars.operator);
-        console.log(calcVars);
+    if (first === "") {
+      if (!operatorPressed(val)) {
+        setNumbers(val, calcVars, "first");
         updateUI(calcVars.first);
-      }
-      calcVars.second = "";
-      if (val == "equal") {
-        val = "";
+        if (ops[0].disabled === true) {
+          console.log("Enabled the operator buttons");
+          ops.forEach(button => {
+            button.disabled = false;
+          });
+        }
       } else {
         calcVars.operator = val;
+        first = calcVars.first;
       }
-      console.log(calcVars, val);
+    } else {
+      if (!operatorPressed(val)) {
+        setNumbers(val, calcVars, "second");
+        updateUI(calcVars.second);
+      } else {
+        console.log(calcVars, val);
+        if (val != "" && calcVars.second != "") {
+          calcVars.first = performOperation(calcVars.operator);
+          console.log(calcVars);
+          updateUI(calcVars.first);
+        }
+        calcVars.second = "";
+        if (val == "equal") {
+          val = "";
+        } else {
+          calcVars.operator = val;
+        }
+        console.log(calcVars, val);
+      }
     }
   }
 }
