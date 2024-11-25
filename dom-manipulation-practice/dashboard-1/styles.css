@@ -316,7 +316,7 @@ input {
 }
 
 .announcements{
-  max-height: 50%;
+  max-height: 95%;
   border-radius: 7px;
   overflow-y: hidden;
 }
@@ -324,10 +324,14 @@ input {
 .notification-sidebar-cont {
   grid-column: 6/8;
   background-color: #dfdfdf;
-  display: flex;
-  flex-direction: column;
+  /* display: flex;
+  flex-direction: column; */
+  display: grid;
+  grid-template-rows: 45% 45%;
+  /* gap: 10px; */
   padding: 0px 25px 10px 0px;
   overflow: hidden;
+  height: 100vh;
 }
 
 .announcement-cont{
@@ -365,9 +369,16 @@ input {
   padding: 25px;
   background-color: whitesmoke;
   border-radius: 10px;
+  overflow-y: auto;
 }
 
 .trend{
   padding: 10px;
+  display: flex;
+}
+
+.trend-img{
+  width: 20%;
+  padding-right: 10px;
 }
 
