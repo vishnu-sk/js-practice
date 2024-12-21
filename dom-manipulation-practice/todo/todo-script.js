@@ -1,18 +1,19 @@
 const addBtn = document.querySelector(".add-btn");
 const addTaskTextInput = document.querySelector("#new-task");
 const closeBtns = document.querySelectorAll(".delete-x");
+const newMenuBtn = document.querySelector(".new");
 let n = 5;
 
 addTaskTextInput.addEventListener("click", setDefaultButtonVals);
 addTaskTextInput.addEventListener("keyup", setButtonOnKeyPress);
 addBtn.addEventListener("click", addTaskToList);
-closeBtns.forEach((item)=> item.addEventListener("click", removeTask));
+closeBtns.forEach(item => item.addEventListener("click", removeTask));
 
 function addTaskToList() {
   document
     .querySelector(".list-group")
     .appendChild(createTask(addTaskTextInput.value));
-}   
+}
 
 function setDefaultButtonVals(e) {
   e.target.value = "";
@@ -50,8 +51,12 @@ function createTask(taskMessage) {
   return liElement;
 }
 
-function removeTask(e){
-    const parentNode = e.target.parentNode;
-    parentNode.remove();
+function removeTask(e) {
+  const parentNode = e.target.parentNode;
+  parentNode.remove();
 }
 
+newMenuBtn.addEventListener("click", e => {
+  console.log(e.target);
+  document.querySelector(".dropdown-list").classList.toggle("show");
+});

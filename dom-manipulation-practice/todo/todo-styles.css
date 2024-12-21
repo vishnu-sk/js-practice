@@ -148,7 +148,7 @@ html, body{
     padding: 2px 5px;
     list-style: none;
     display: flex;
-    justify-content: space-between;    
+    justify-content: space-between;
 }
 
 .list-group li:hover{
@@ -164,7 +164,7 @@ html, body{
     color: azure;
     align-self: flex-start;
     margin-left: 2px;
-    
+
     &:hover{
         background-color: brown;
         cursor: pointer;
@@ -182,4 +182,30 @@ html, body{
 
 .list-item:checked + label{
     text-decoration: line-through;
+}
+
+.dropdown-list{
+    display: none;
+    position: absolute;
+    /* top: 10px; */
+    background-color: skyblue;
+    border: 1px solid rgba(32, 178, 171, 0.35);
+    border-radius: 0 0 5px 5px;
+    padding: 5px 2px;
+    z-index: 1;
+    transition: all 1s;
+    transform-origin: top;
+}
+
+.dropdown{
+    padding: 5px 10px;
+
+    &:hover{
+        background-color: rgb(93, 197, 231);
+        cursor: pointer;
+    }
+}
+
+.show{
+    display: block;
 }
