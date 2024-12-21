@@ -102,6 +102,16 @@ html, body{
     background-color: brown;
 }
 
+.add-btn:disabled{
+    background-color: lightslategray;
+}
+
+.add-btn:disabled:hover{
+    cursor: not-allowed;
+    scale: 1;
+    box-shadow: none;
+}
+
 .add-btn::before{
     content: '+';
     text-align: center;
@@ -152,6 +162,8 @@ html, body{
     border-radius: 3px;
     text-align: center;
     color: azure;
+    align-self: flex-start;
+    margin-left: 2px;
     
     &:hover{
         background-color: brown;
@@ -161,6 +173,11 @@ html, body{
     &:active{
         background-color: lightcoral;
     }
+}
+
+.list-item{
+    display: inline;
+    margin-right: 5px;
 }
 
 .list-item:checked + label{
