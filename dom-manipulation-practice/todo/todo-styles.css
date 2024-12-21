@@ -69,6 +69,7 @@ html, body{
     border: 1px solid lightseagreen;
     border-left: 5px solid green;
     border-radius: 5px;
+    padding-left: 10px;
 
     &:hover{
         border: 2px solid green;
@@ -91,10 +92,16 @@ html, body{
     color: whitesmoke;
     background-color: rgb(52, 129, 52);
     scale: 1.1;
+    cursor: pointer;
     box-shadow: 1px 1px 4px 0px green,
             -1px -1px 4px 0px rgb(218, 241, 179);
 
 }
+
+.add-btn:active{
+    background-color: brown;
+}
+
 .add-btn::before{
     content: '+';
     text-align: center;
@@ -148,5 +155,14 @@ html, body{
     
     &:hover{
         background-color: brown;
+        cursor: pointer;
     }
+
+    &:active{
+        background-color: lightcoral;
+    }
+}
+
+.list-item:checked + label{
+    text-decoration: line-through;
 }
