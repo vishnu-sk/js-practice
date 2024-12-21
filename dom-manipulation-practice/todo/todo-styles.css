@@ -112,7 +112,9 @@ html, body{
 .list-cont{
     padding: 20px 30px 10px ;
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
+    width: 100%;
+    box-sizing: border-box;
 
 }
 
@@ -120,11 +122,31 @@ html, body{
     padding: 10px;
     font-size: 1.2rem;
     font-weight: 600;
+    width: 100%;
 }
 
 .list-group li{
     font-weight: 400;
     font-size: 1rem;
-    padding: 2px 0;
+    padding: 2px 5px;
     list-style: none;
+    display: flex;
+    justify-content: space-between;    
+}
+
+.list-group li:hover{
+    background-color: rgba(30, 226, 216, 0.623);
+}
+
+.delete-x{
+    padding: 0px 5px;
+    background-color: red;
+    box-sizing: border-box;
+    border-radius: 3px;
+    text-align: center;
+    color: azure;
+    
+    &:hover{
+        background-color: brown;
+    }
 }
