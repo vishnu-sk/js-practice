@@ -1,211 +1,265 @@
-
 @font-face {
-    font-family: "Roboto";
-    font-weight: 500;
-    src: url("../dashboard-1/assets/Roboto/Roboto-Regular.ttf");
-}
-@font-face {
-    font-family: "Roboto";
-    font-weight: 700;
-    src: url("../dashboard-1/assets/Roboto/Roboto-Bold.ttf");
+  font-family: "Roboto";
+  font-weight: 500;
+  src: url("../dashboard-1/assets/Roboto/Roboto-Regular.ttf");
 }
 @font-face {
-    font-family: "Roboto";
-    font-weight: 300;
-    src: url("../dashboard-1/assets/Roboto/Roboto-Thin.ttf");
+  font-family: "Roboto";
+  font-weight: 700;
+  src: url("../dashboard-1/assets/Roboto/Roboto-Bold.ttf");
+}
+@font-face {
+  font-family: "Roboto";
+  font-weight: 300;
+  src: url("../dashboard-1/assets/Roboto/Roboto-Thin.ttf");
 }
 
-
-html, body{
-    height: 100vh;
-    width: 100vw;
-    font-family: "Roboto";
-    background:linear-gradient(50deg,rgb(219, 39, 150),rgb(125, 46, 228));
+html,
+body {
+  height: 100vh;
+  width: 100vw;
+  font-family: "Roboto";
+  background: linear-gradient(50deg, rgb(219, 39, 150), rgb(125, 46, 228));
 }
 
-*{
-    padding: 0;
-    margin: 0;
+* {
+  padding: 0;
+  margin: 0;
 }
 
-.cont{
-    height: 50%;
-    width: 50%;
-    overflow: auto;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translateY(-50%) translateX(-50%);
-    background-color: lightseagreen;
-    border-radius: 15px;
-    /* padding: 20px; */
-    box-shadow: 8px 8px 15px -5px rgba(105, 105, 105, 0.75),
-               -8px -8px 12px -4px rgba(233, 233, 233, 0.75);
-
+.cont {
+  height: 50%;
+  width: 50%;
+  overflow: auto;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translateY(-50%) translateX(-50%);
+  background-color: lightseagreen;
+  border-radius: 15px;
+  /* padding: 20px; */
+  box-shadow: 8px 8px 15px -5px rgba(105, 105, 105, 0.75),
+    -8px -8px 12px -4px rgba(233, 233, 233, 0.75);
 }
 
-.header{
-    display: flex;
-    flex-direction: column;
-    padding: 20px 20px 10px;
-    background-color: lightskyblue;
+.header {
+  display: flex;
+  flex-direction: column;
+  padding: 20px 20px 10px;
+  background-color: lightskyblue;
 }
 
-.nav{
-    display: flex;
-    justify-content: space-around;
-    padding: 5px;
+.nav {
+  display: flex;
+  justify-content: space-around;
+  padding: 5px;
 }
 
-.add-task-cont{
-    padding: 10px 20px;
-    display: flex;
-    justify-content: center;
+.add-task-cont {
+  padding: 10px 20px;
+  display: flex;
+  justify-content: center;
 }
 
-#new-task{
-    width: 60%;
-    margin-right: 20px;
-    border: 1px solid lightseagreen;
+#new-task {
+  width: 60%;
+  margin-right: 20px;
+  border: 1px solid lightseagreen;
+  border-left: 5px solid green;
+  border-radius: 5px;
+  padding-left: 10px;
+
+  &:hover {
+    border: 2px solid green;
     border-left: 5px solid green;
-    border-radius: 5px;
-    padding-left: 10px;
-
-    &:hover{
-        border: 2px solid green;
-        border-left: 5px solid green;
-        box-shadow: 0px 0px -5px green;
-    }
+    box-shadow: 0px 0px -5px green;
+  }
 }
 
-
-.add-btn{
-    padding: 5px 15px;
-    font-weight: 700;
-    border:none;
-    border-radius: 5px;
-    background-color: darkgreen;
-    color: lightblue;
+.add-btn {
+  padding: 5px 15px;
+  font-weight: 700;
+  border: none;
+  border-radius: 5px;
+  background-color: darkgreen;
+  color: lightblue;
 }
 
-.add-btn:hover{
-    color: whitesmoke;
-    background-color: rgb(52, 129, 52);
-    scale: 1.1;
-    cursor: pointer;
-    box-shadow: 1px 1px 4px 0px green,
-            -1px -1px 4px 0px rgb(218, 241, 179);
-
+.add-btn:hover {
+  color: whitesmoke;
+  background-color: rgb(52, 129, 52);
+  scale: 1.1;
+  cursor: pointer;
+  box-shadow: 1px 1px 4px 0px green, -1px -1px 4px 0px rgb(218, 241, 179);
 }
 
-.add-btn:active{
-    background-color: brown;
+.add-btn:active {
+  background-color: brown;
 }
 
-.add-btn:disabled{
-    background-color: lightslategray;
+.add-btn:disabled {
+  background-color: lightslategray;
 }
 
-.add-btn:disabled:hover{
-    cursor: not-allowed;
-    scale: 1;
-    box-shadow: none;
+.add-btn:disabled:hover {
+  cursor: not-allowed;
+  scale: 1;
+  box-shadow: none;
 }
 
-.add-btn::before{
-    content: '+';
-    text-align: center;
-    font-size: 1.1rem;
-    font-weight: 900;
-    color: whitesmoke;
-    position:relative;
-    top: 0px;
-    line-height: 15px;
-    height: 100px;
-    width: 100px;
-    left: -5px;
+.add-btn::before {
+  content: "+";
+  text-align: center;
+  font-size: 1.1rem;
+  font-weight: 900;
+  color: whitesmoke;
+  position: relative;
+  top: 0px;
+  line-height: 15px;
+  height: 100px;
+  width: 100px;
+  left: -5px;
 }
 
-.list-cont{
-    padding: 20px 30px 10px ;
-    display: flex;
-    justify-content: flex-start;
-    width: 100%;
-    box-sizing: border-box;
-
+.list-cont {
+  padding: 20px 30px 10px;
+  display: flex;
+  justify-content: flex-start;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .list-group {
-    padding: 10px;
-    font-size: 1.2rem;
-    font-weight: 600;
-    width: 100%;
+  padding: 10px;
+  font-size: 1.2rem;
+  font-weight: 600;
+  width: 100%;
 }
 
-.list-group li{
-    font-weight: 400;
-    font-size: 1rem;
-    padding: 2px 5px;
-    list-style: none;
-    display: flex;
-    justify-content: space-between;
+.list-group li {
+  font-weight: 400;
+  font-size: 1rem;
+  padding: 2px 5px;
+  list-style: none;
+  display: flex;
+  justify-content: space-between;
 }
 
-.list-group li:hover{
-    background-color: rgba(30, 226, 216, 0.623);
+.list-group li:hover {
+  background-color: rgba(30, 226, 216, 0.623);
 }
 
-.delete-x{
-    padding: 0px 5px;
-    background-color: red;
-    box-sizing: border-box;
-    border-radius: 3px;
-    text-align: center;
-    color: azure;
-    align-self: flex-start;
-    margin-left: 2px;
+.delete-x {
+  padding: 0px 5px;
+  background-color: red;
+  box-sizing: border-box;
+  border-radius: 3px;
+  text-align: center;
+  color: azure;
+  align-self: flex-start;
+  margin-left: 2px;
 
-    &:hover{
-        background-color: brown;
-        cursor: pointer;
-    }
+  &:hover {
+    background-color: brown;
+    cursor: pointer;
+  }
 
-    &:active{
-        background-color: lightcoral;
-    }
+  &:active {
+    background-color: lightcoral;
+  }
 }
 
-.list-item{
-    display: inline;
-    margin-right: 5px;
+.list-item {
+  display: inline;
+  margin-right: 5px;
 }
 
-.list-item:checked + label{
-    text-decoration: line-through;
+.list-item:checked + label {
+  text-decoration: line-through;
 }
 
-.dropdown-list{
-    display: none;
-    position: absolute;
-    /* top: 10px; */
-    background-color: skyblue;
-    border: 1px solid rgba(32, 178, 171, 0.35);
-    border-radius: 0 0 5px 5px;
-    padding: 5px 2px;
-    z-index: 1;
-    transition: all 1s;
-    transform-origin: top;
+.dropdown-list {
+  display: none;
+  position: absolute;
+  /* top: 10px; */
+  background-color: skyblue;
+  border: 1px solid rgba(32, 178, 171, 0.35);
+  border-radius: 0 0 5px 5px;
+  padding: 5px 2px;
+  z-index: 1;
+  transition: all 1s;
+  transform-origin: top;
 }
 
-.dropdown{
-    padding: 5px 10px;
+.dropdown {
+  padding: 5px 10px;
 
-    &:hover{
-        background-color: rgb(93, 197, 231);
-        cursor: pointer;
-    }
+  &:hover {
+    background-color: rgb(93, 197, 231);
+    cursor: pointer;
+  }
 }
 
-.show{
-    display: block;
+.show {
+  display: block;
+}
+
+.toggle-box-cont {
+  position: relative;
+  display: inline-block;
+  width: 66px;
+  height: 36px;
+  margin-right: 10px;
+}
+.toggle-box-cont input {
+  opacity: 0;
+  height: 0;
+  width: 0;
+}
+
+.slider {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: #ddd;
+  transition: 0.8s;
+}
+
+.slider::before {
+  position: absolute;
+  content: "";
+  height: 30px;
+  width: 30px;
+  padding: 0px 0;
+  margin: 2px 3px;
+  border-radius: 15px;
+  background-color: dimgray;
+  transition: 0.8s;
+}
+
+.toggle-box-cont > input:checked + .slider::before {
+  transform: translateX(30px);
+  background-color: rgb(73, 50, 177);
+}
+
+.round {
+  border-radius: 17px;
+  border: 1px solid rgba(105, 105, 105, 0.4);
+  box-shadow: inset -2px 2px 5px darkgray, 2px 2px 5px lightgray;
+}
+
+.round:hover {
+  cursor: pointer;
+}
+
+.toggle-box-cont > input:checked + .round {
+  background-color: rgb(117, 165, 236);
+  border: 1px solid rgba(86, 99, 128, 0.4);
+  box-shadow: inset 1px -1px 5px rgba(80, 72, 189, 0.466), 2px 2px 5px rgb(153, 172, 235);
+}
+
+.input:focus  + .slider  {
+    box-shadow: 10px 10px 5px rgb(8, 24, 8);
 }
