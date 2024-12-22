@@ -263,3 +263,25 @@ body {
 .input:focus  + .slider  {
     box-shadow: 10px 10px 5px rgb(8, 24, 8);
 }
+
+.tooltip{
+    visibility:hidden;
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    width: 0px;
+    overflow: hidden;
+    margin: 0;
+    text-wrap: wrap;
+    transition:  0.3s ease;
+}
+
+.round:hover + .tooltip{
+    visibility: visible;
+    display: block;
+    width: 150px;
+    border-radius: 2px 15px 15px ;
+    border: 0.5px solid lightblue;
+    background-color: #dddddda9;
+    padding: 10px;
+}

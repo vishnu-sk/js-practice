@@ -2,6 +2,7 @@ const addBtn = document.querySelector(".add-btn");
 const addTaskTextInput = document.querySelector("#new-task");
 const closeBtns = document.querySelectorAll(".delete-x");
 const newMenuBtn = document.querySelector(".new");
+const toggleBarForDrag = document.querySelector("#drag-toggle");
 let n = 5;
 
 addTaskTextInput.addEventListener("click", setDefaultButtonVals);
@@ -59,4 +60,20 @@ function removeTask(e) {
 newMenuBtn.addEventListener("click", e => {
   console.log(e.target);
   document.querySelector(".dropdown-list").classList.toggle("show");
+});
+
+toggleBarForDrag.addEventListener("click", e => {
+  if (toggleBarForDrag.checked) {
+    document.querySelectorAll(".delete-x").forEach(item => {
+      item.innerText = "=";
+      item.removeEventListener("click", removeTask);
+      item.parentNode.draggable = true;
+    });
+  } else {
+    document.querySelectorAll(".delete-x").forEach(item => {
+      item.innerText = "\u2715";
+      item.addEventListener("click", removeTask);
+      item.parentNode.draggable = false;
+    });
+  }
 });
