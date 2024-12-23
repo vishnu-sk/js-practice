@@ -273,7 +273,7 @@ body {
     overflow: hidden;
     margin: 0;
     text-wrap: wrap;
-    transition:  0.3s ease;
+    transition:  0.1s ease;
 }
 
 .round:hover + .tooltip{

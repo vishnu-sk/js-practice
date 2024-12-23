@@ -77,3 +77,53 @@ toggleBarForDrag.addEventListener("click", e => {
     });
   }
 });
+
+const listGroup = document.querySelector(".list-group");
+// function dragElements(){
+const lists = document.querySelector(".list");
+listGroup.addEventListener("dragstart", e => {
+  if (e.target.classList.contains("list")) {
+    e.target.style.opacity = "0.5";
+    e.target.classList.add("dragging");
+  }
+});
+
+listGroup.addEventListener("dragend", e => {
+  if (e.target.classList.contains("list")) {
+    e.target.style.opacity = "1";
+    e.target.classList.remove("dragging");
+  }
+});
+
+const y = [];
+
+listGroup.addEventListener("dragover", e => {
+  if (e.target.classList.contains("list")) {
+    const justBelowElement = getBelowElement(listGroup, e.clientY);
+    const dragged = document.querySelector(".dragging");
+    if (justBelowElement) {
+      listGroup.insertBefore(dragged, justBelowElement);
+    } else {
+      listGroup.appendChild(dragged);
+    }
+  }
+});
+
+function getBelowElement(container, y) {
+  let draggableElems = [...container.querySelectorAll(".list:not(.dragging)")];
+  return draggableElems.reduce(
+    (closest, child) => {
+      console.log(child);
+      const rect = child.getBoundingClientRect();
+      const offset = y - rect.top - rect.height / 2;
+      if (offset < 0 && offset > closest.offset) {
+        console.log("CHILD" + child.innerText);
+        return { offset: offset, element: child };
+      } else {
+        return closest;
+      }
+    },
+    { offset: Number.NEGATIVE_INFINITY, element: null }
+  ).element;
+}
+// }
