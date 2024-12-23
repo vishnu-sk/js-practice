@@ -8,9 +8,23 @@ const listGroup = document.querySelector(".list-group");
 const lists = document.querySelector(".list");
 
 addTaskTextInput.addEventListener("click", setDefaultButtonVals);
+
 addTaskTextInput.addEventListener("keyup", setButtonOnKeyPress);
+
 addBtn.addEventListener("click", addTaskToList);
+
 closeBtns.forEach(item => item.addEventListener("click", removeTask));
+
+newMenuBtn.addEventListener("click",toggleShowforDropdown);
+
+toggleBarForDrag.addEventListener("click", toggleButtonAction);
+
+listGroup.addEventListener("dragstart", e => dragStartEnd(e, true));
+
+listGroup.addEventListener("dragend", e => dragStartEnd(e, false));
+
+listGroup.addEventListener("dragover", setElementPositionDuringDrag);
+
 
 function addTaskToList() {
   document
@@ -64,58 +78,6 @@ function removeTask(e) {
   parentNode.remove();
 }
 
-newMenuBtn.addEventListener("click", e => {
-  console.log(e.target);
-  document.querySelector(".dropdown-list").classList.toggle("show");
-});
-
-toggleBarForDrag.addEventListener("click", e => {
-  if (toggleBarForDrag.checked) {
-    document.querySelectorAll(".delete-x").forEach(item => {
-      item.innerText = "=";
-      item.removeEventListener("click", removeTask);
-      item.parentNode.draggable = true;
-    });
-    addTaskTextInput.disabled = true;
-    setDefaultButtonVals();
-  } else {
-    document.querySelectorAll(".delete-x").forEach(item => {
-      item.innerText = "\u2715";
-      item.addEventListener("click", removeTask);
-      item.parentNode.draggable = false;
-    });
-    addTaskTextInput.disabled = false;
-  }
-});
-
-listGroup.addEventListener("dragstart", e => {
-  if (e.target.classList.contains("list")) {
-    e.target.style.opacity = "0.5";
-    e.target.classList.add("dragging");
-  }
-});
-
-listGroup.addEventListener("dragend", e => {
-  if (e.target.classList.contains("list")) {
-    e.target.style.opacity = "1";
-    e.target.classList.remove("dragging");
-  }
-});
-
-const y = [];
-
-listGroup.addEventListener("dragover", e => {
-  if (e.target.classList.contains("list")) {
-    const justBelowElement = getBelowElement(listGroup, e.clientY);
-    const dragged = document.querySelector(".dragging");
-    if (justBelowElement) {
-      listGroup.insertBefore(dragged, justBelowElement);
-    } else {
-      listGroup.appendChild(dragged);
-    }
-  }
-});
-
 function getBelowElement(container, y) {
   let draggableElems = [...container.querySelectorAll(".list:not(.dragging)")];
   return draggableElems.reduce(
@@ -133,4 +95,50 @@ function getBelowElement(container, y) {
     { offset: Number.NEGATIVE_INFINITY, element: null }
   ).element;
 }
-// }
+
+function setElementPositionDuringDrag(e) {
+  if (e.target.classList.contains("list")) {
+    const justBelowElement = getBelowElement(listGroup, e.clientY);
+    const dragged = document.querySelector(".dragging");
+    if (justBelowElement) {
+      listGroup.insertBefore(dragged, justBelowElement);
+    } else {
+      listGroup.appendChild(dragged);
+    }
+  }
+}
+
+function toggleButtonAction() {
+  if (toggleBarForDrag.checked) {
+    document.querySelectorAll(".delete-x").forEach(item => {
+      item.innerText = "=";
+      item.removeEventListener("click", removeTask);
+      item.parentNode.draggable = true;
+    });
+    addTaskTextInput.disabled = true;
+    setDefaultButtonVals();
+  } else {
+    document.querySelectorAll(".delete-x").forEach(item => {
+      item.innerText = "\u2715";
+      item.addEventListener("click", removeTask);
+      item.parentNode.draggable = false;
+    });
+    addTaskTextInput.disabled = false;
+  }
+}
+
+function dragStartEnd(e, dragstart) {
+  if (e.target.classList.contains("list")) {
+    if (dragstart) {
+      e.target.style.opacity = "0.5";
+      e.target.classList.add("dragging");
+    } else {
+      e.target.style.opacity = "1";
+      e.target.classList.remove("dragging");
+    }
+  }
+}
+
+function toggleShowforDropdown() {
+  document.querySelector(".dropdown-list").classList.toggle("show");
+}
