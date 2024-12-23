@@ -70,11 +70,14 @@ body {
   padding-left: 10px;
 
   &:hover {
+    position: relative;
+    margin-right: 19px;
     border: 2px solid green;
     border-left: 5px solid green;
     box-shadow: 0px 0px -5px green;
   }
 }
+
 
 .add-btn {
   padding: 5px 15px;
@@ -174,8 +177,23 @@ body {
   margin-right: 5px;
 }
 
-.list-item:checked + label {
-  text-decoration: line-through;
+.list span{
+  position: relative;
+}
+
+.list-item + label::after{
+  content: "";
+  position: absolute;
+  width: 0%;
+  height: 1px;
+  top: 0.6rem;
+  left: 20px;
+  background-color: black;
+  transition: 0.5s;
+}
+.list-item:checked + label::after {
+  /* text-decoration: line-through; */
+  width: 95%;
 }
 
 .dropdown-list {
@@ -207,7 +225,7 @@ body {
 .toggle-box-cont {
   position: relative;
   display: inline-block;
-  width: 66px;
+  width: 67px;
   height: 36px;
   margin-right: 10px;
 }
