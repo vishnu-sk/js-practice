@@ -4,6 +4,8 @@ const closeBtns = document.querySelectorAll(".delete-x");
 const newMenuBtn = document.querySelector(".new");
 const toggleBarForDrag = document.querySelector("#drag-toggle");
 let n = 5;
+const listGroup = document.querySelector(".list-group");
+const lists = document.querySelector(".list");
 
 addTaskTextInput.addEventListener("click", setDefaultButtonVals);
 addTaskTextInput.addEventListener("keyup", setButtonOnKeyPress);
@@ -17,14 +19,19 @@ function addTaskToList() {
 }
 
 function setDefaultButtonVals(e) {
-  e.target.value = "";
+  addTaskTextInput.value = "";
   addBtn.disabled = true;
 }
 
 function setButtonOnKeyPress(e) {
   if (e.target.value != "") {
-    console.log(e.target.value);
     addBtn.disabled = false;
+    if (e.key == "Enter") {
+      addTaskToList();
+      setDefaultButtonVals(e);
+    }
+  } else if (e.key == "Enter") {
+    console.log("Hello EveryNyah;");
   }
 }
 
@@ -69,18 +76,18 @@ toggleBarForDrag.addEventListener("click", e => {
       item.removeEventListener("click", removeTask);
       item.parentNode.draggable = true;
     });
+    addTaskTextInput.disabled = true;
+    setDefaultButtonVals();
   } else {
     document.querySelectorAll(".delete-x").forEach(item => {
       item.innerText = "\u2715";
       item.addEventListener("click", removeTask);
       item.parentNode.draggable = false;
     });
+    addTaskTextInput.disabled = false;
   }
 });
 
-const listGroup = document.querySelector(".list-group");
-// function dragElements(){
-const lists = document.querySelector(".list");
 listGroup.addEventListener("dragstart", e => {
   if (e.target.classList.contains("list")) {
     e.target.style.opacity = "0.5";

@@ -76,6 +76,10 @@ body {
     border-left: 5px solid green;
     box-shadow: 0px 0px -5px green;
   }
+
+  &:disabled{
+    cursor: not-allowed;
+  }
 }
 
 
