@@ -7,6 +7,8 @@ let n = 5;
 const listGroup = document.querySelector(".list-group");
 const lists = document.querySelector(".list");
 
+console.log(toggleBarForDrag.checked);
+
 addTaskTextInput.addEventListener("click", setDefaultButtonVals);
 
 addTaskTextInput.addEventListener("keyup", setButtonOnKeyPress);
@@ -82,11 +84,11 @@ function getBelowElement(container, y) {
   let draggableElems = [...container.querySelectorAll(".list:not(.dragging)")];
   return draggableElems.reduce(
     (closest, child) => {
-      console.log(child);
+      // console.log(child);
       const rect = child.getBoundingClientRect();
       const offset = y - rect.top - rect.height / 2;
       if (offset < 0 && offset > closest.offset) {
-        console.log("CHILD" + child.innerText);
+        // console.log("CHILD" + child.innerText);
         return { offset: offset, element: child };
       } else {
         return closest;
