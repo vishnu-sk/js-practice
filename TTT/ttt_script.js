@@ -6,7 +6,10 @@ const k = [
 
 // console.table(k);
 
-function GameBoard() {
+//Using IIFE module since we need only a single instance of GameBoard
+// to be used across the project
+
+const GameBoard = (() => {
   const rowL = 3;
   const colL = 3;
   board = [];
@@ -41,7 +44,7 @@ function GameBoard() {
   };
 
   return { getBoard, markValues, displayBoard };
-}
+})();
 
 //Function for a single cell inside game board
 //This allows us to modify cell value without exposing the cell value
@@ -67,7 +70,8 @@ function playGame(playerOne = "Player One", playerTwo = "Player Two") {
     { name: playerOne, token: 1 },
     { name: playerTwo, token: 2 },
   ];
-  const gameBoard = GameBoard();
+
+  //const gameBoard = GameBoard();
   //   const board = gameBoard.getBoard();
   let _activePlayer = players[0];
 
@@ -77,14 +81,14 @@ function playGame(playerOne = "Player One", playerTwo = "Player Two") {
 
   const getActivePlayer = () => _activePlayer;
 
-  const displayBoardAfterRound = () => gameBoard.displayBoard();
+  const displayBoardAfterRound = () => GameBoard.displayBoard();
 
   const playRound = (row, col) => {
     const rowVal = parseInt(row);
     const colVal = parseInt(col);
 
     if (!isNaN(rowVal) && !isNaN(colVal)) {
-      if (gameBoard.markValues(rowVal, colVal, _activePlayer.token)) {
+      if (GameBoard.markValues(rowVal, colVal, _activePlayer.token)) {
         switchPlayer();
       } else {
         console.log("The cell is already filled. Choose another one...");
@@ -125,7 +129,7 @@ function playGame(playerOne = "Player One", playerTwo = "Player Two") {
   // };
 
   const getRowColSum = () => {
-    const board = gameBoard.getBoard();
+    const board = GameBoard.getBoard();
     let rowSum = [0, 0, 0];
     let colSum = [0, 0, 0];
     let diaSum = [0, 0, 0];
@@ -135,7 +139,7 @@ function playGame(playerOne = "Player One", playerTwo = "Player Two") {
     //and then finding sum of a elements in a column
     //and assigning it to colSum
     const colLen = board[0].length;
-    for (i = 0; i < colLen; i++) {
+    for (let i = 0; i < colLen; i++) {
       let s = 0;
       diaSum[0] += board[i][i].getCellValue();
       diaSum[1] += board[i][colLen - i - 1].getCellValue();
@@ -166,8 +170,10 @@ function playGame(playerOne = "Player One", playerTwo = "Player Two") {
     const sumArray = getRowColSum();
     if (sumArray.includes(3)) {
       return playerOne;
-    } else {
+    } else if (sumArray.includes(6)) {
       return playerTwo;
+    } else {
+      return null;
     }
   };
 
@@ -178,17 +184,46 @@ function playGame(playerOne = "Player One", playerTwo = "Player Two") {
     getRowColSum,
   };
 }
-const ll = playGame();
-// const kl = GameBoard();
-// kl.displayBoard();
 
-// ll.displayBoardAfterRound();
-ll.playRound(2, 1);
-ll.playRound(0, 0);
-ll.playRound(2, 2);
-ll.playRound(0, 2);
-ll.playRound(2, 0);
-ll.playRound(1, 2);
-//ll.isGameOver();
-console.log(ll.getRowColSum());
-const km = ll.getRowColSum();
+const UIAction = (function () {
+  const cell = $(".div-cell");
+  const gridCont = $(".grid-cont");
+  const board = GameBoard.getBoard();
+  const gameCtrl = playGame();
+
+  function renderDOMBoard() {
+    for (let i = 0; i < 3; i++) {
+      for (let j = 0; j < 3; j++) {
+        const cellVal = board[i][j].getCellValue();
+        if (cellVal == -2) {
+          cell[i * 3 + j].innerText = ":";
+        } else if (cellVal == 1) {
+          cell[i * 3 + j].innerText = "O";
+        } else if (cellVal == 2) {
+          cell[i * 3 + j].innerText = "X";
+        }
+      }
+    }
+
+  }
+
+  function setDOMBoardVals() {
+    cell.on("click", e => {
+      const c = e.target.getAttribute("data-id");
+      let i =  parseInt(c/3);
+      let j = c%3;
+      gameCtrl.playRound(i,j);
+      renderDOMBoard();
+    });
+  }
+
+  function setScoreBoard(){
+
+  }
+
+  renderDOMBoard();
+  setDOMBoardVals();
+
+ 
+})();
+
