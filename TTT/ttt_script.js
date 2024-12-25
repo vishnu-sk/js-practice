@@ -106,13 +106,18 @@ function playGame(playerOne = "Player One", playerTwo = "Player Two") {
 
     const winner = getWinner();
     if (winner) {
+      UIAction.setScoreBoard(`Winner: ${winner.token}`);
+      UIAction.disableDOMBoard();
+      _activePlayer = players[0];
     }
   };
 
+
+  //Function not used anywhere
   const isGameOver = () => {
     const b = GameBoard.getBoard();
-    // return;
 
+    //trying to reduce 2-D array to obtain winner
     const r1 = b.map(
       row =>
         row.reduce(
@@ -170,19 +175,21 @@ function playGame(playerOne = "Player One", playerTwo = "Player Two") {
       }, 0)
     );
 
-    console.log(colSum);
-    console.log(rowSum);
-    console.log(diaSum);
+    //console.log(colSum);
+    //console.log(rowSum);
+    //console.log(diaSum);
 
+    //returing the sums of rows, cols and diagonals as a flat 1-D array
     return [...rowSum, ...colSum, ...diaSum];
   };
 
+  //Function to get winner of the game
   const getWinner = () => {
     const sumArray = getRowColSum();
     if (sumArray.includes(3)) {
-      return playerOne;
+      return players[0];
     } else if (sumArray.includes(6)) {
-      return playerTwo;
+      return players[1];
     } else {
       return null;
     }
@@ -195,6 +202,11 @@ function playGame(playerOne = "Player One", playerTwo = "Player Two") {
     getWinner,
   };
 }
+
+
+//IIFE method to perform UI actions
+//Caching DOM, Binding event listners and Rendering done inside
+//Exposed API to set the info message from other functions
 
 const UIAction = (function () {
   const $cell = $(".div-cell");
@@ -212,6 +224,8 @@ const UIAction = (function () {
   });
 
   //Functions for UI actions
+
+  //Function to render UI tic tac toe board based on GameBoard array
   function renderDOMBoard() {
     for (let i = 0; i < 3; i++) {
       for (let j = 0; j < 3; j++) {
@@ -227,12 +241,19 @@ const UIAction = (function () {
     }
   }
 
+  //Function to reset the Board UI
   function resetDOMBoardVals() {
     GameBoard.resetBoard();
     renderDOMBoard();
+    setScoreBoard();
     console.log("RESET");
+    if($cell.hasClass("div-cell-disabled")){
+      enableDOMBoard();
+      console.log("Enabled Board");
+    }
   }
 
+  //Function to set the value of cell/box from DOM
   function setDOMBoardVals(e) {
     const c = e.target.getAttribute("data-id");
     let i = parseInt(c / 3);
@@ -242,6 +263,7 @@ const UIAction = (function () {
     renderDOMBoard();
   }
 
+  //Function to set the info message abovethe game board
   function setScoreBoard(message = "") {
     if (message == "") {
       $msgBoard.text(`Current Player: ${gameCtrl.getActivePlayer().token}`);
@@ -250,9 +272,22 @@ const UIAction = (function () {
     }
   }
 
+  function disableDOMBoard(){
+    $cell.off("click", setDOMBoardVals);
+    $cell.addClass("div-cell-disabled");
+    $cell.attr("disabled","disabled");
+  }
+
+  function enableDOMBoard(){
+    $cell.on("click", setDOMBoardVals);
+    $cell.removeClass("div-cell-disabled");
+    $cell.removeAttr("disabled");
+
+  }
+
   //resetDOMBoardVals();
   //setScoreBoard();
   //setDOMBoardVals();
 
-  return { setScoreBoard };
+  return { setScoreBoard, disableDOMBoard };
 })();
