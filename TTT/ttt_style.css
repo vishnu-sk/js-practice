@@ -73,8 +73,8 @@ body {
   box-sizing: border-box;
 }
 .div-cell {
-  height: 98%;
-  width: 98%;
+  height: 100%;
+  width: 100%;
   border-radius: 5px;
   box-sizing: border-box;
   box-shadow: inset 5px 5px 5px rgb(133, 133, 133),
@@ -86,11 +86,24 @@ body {
   align-items: center;
 }
 
+.div-cell.div-cell-disabled{
+    background-color: #848383;
+    box-shadow: none;
+
+    &:hover{
+        box-shadow: none;
+        cursor: not-allowed;
+        height: 100%;
+        width: 100%;
+
+    }
+}
+
 .div-cell:hover {
   box-shadow: inset -5px -5px 5px rgb(133, 133, 133),
     inset 5px 5px 5px rgb(231, 230, 230);
-  height: 100%;
-  width: 100%;
+  height: 98%;
+  width: 98%;
   cursor: pointer;
 }
 
