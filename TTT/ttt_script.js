@@ -25,8 +25,10 @@ const GameBoard = (() => {
     }
   }
 
+  //Initializing the board
   resetBoard();
 
+  //Fucntion to get the values of board elements
   const getBoard = () => board;
 
   //Function to mark the values of the board
@@ -68,24 +70,31 @@ function ticCell() {
   return { setCellValue, getCellValue };
 }
 
+//The Game Control flow logic is written inside this function
 function playGame(playerOne = "Player One", playerTwo = "Player Two") {
   const players = [
     { name: playerOne, token: 1 },
     { name: playerTwo, token: 2 },
   ];
 
-  //const gameBoard = GameBoard();
-  //   const board = gameBoard.getBoard();
+  //active player is a private variable and cannot be altered directly
   let _activePlayer = players[0];
 
+  //Function to switch the active player from the list of players
   const switchPlayer = () => {
     _activePlayer = _activePlayer === players[0] ? players[1] : players[0];
   };
 
+  //Function to get the current active player
   const getActivePlayer = () => _activePlayer;
 
+  //Function to display the Game board values in console
   const displayBoardAfterRound = () => GameBoard.displayBoard();
 
+  //Function to play a Round. 
+  //Takes value and then inserts the value in tht GameBoard.
+  //Then Switches the player and updates the current player in UI
+  //At the end of each round, checks if we have a winner or not
   const playRound = (row, col) => {
     const rowVal = parseInt(row);
     const colVal = parseInt(col);
@@ -104,6 +113,7 @@ function playGame(playerOne = "Player One", playerTwo = "Player Two") {
     displayBoardAfterRound();
     console.log("Active Player:" + _activePlayer.name);
 
+    //if winner is found the info div shows the winner and then disables cell actions
     const winner = getWinner();
     if (winner) {
       UIAction.setScoreBoard(`Winner: ${winner.token}`);
@@ -144,6 +154,7 @@ function playGame(playerOne = "Player One", playerTwo = "Player Two") {
     console.log(r1.filter(k => k.won == true)[0].element);
   };
 
+  
   const getRowColSum = () => {
     const board = GameBoard.getBoard();
     let rowSum = [0, 0, 0];
@@ -209,6 +220,8 @@ function playGame(playerOne = "Player One", playerTwo = "Player Two") {
 //Exposed API to set the info message from other functions
 
 const UIAction = (function () {
+
+  //Cached DOM variables so that DOM doesnt have to be searched eachtime
   const $cell = $(".div-cell");
   const gridCont = $(".grid-cont");
   const $msgBoard = $(".info-msg");
@@ -216,7 +229,9 @@ const UIAction = (function () {
   const board = GameBoard.getBoard();
   const gameCtrl = playGame();
 
-  //bind elements
+  //bind elements 
+  //the event listeners are declared outside the function else we would have to
+  //call the function with eventlisteners inside the UIAction function
   $(document).ready(() => {
     $resetBtn.on("click", resetDOMBoardVals);
     $cell.on("click", setDOMBoardVals);
@@ -272,12 +287,14 @@ const UIAction = (function () {
     }
   }
 
+  //Function to disable the cells and remove event listeners from the cells
   function disableDOMBoard(){
     $cell.off("click", setDOMBoardVals);
     $cell.addClass("div-cell-disabled");
     $cell.attr("disabled","disabled");
   }
 
+  //Function to enable the cells and add event listeners from the cells
   function enableDOMBoard(){
     $cell.on("click", setDOMBoardVals);
     $cell.removeClass("div-cell-disabled");
