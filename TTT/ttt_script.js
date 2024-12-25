@@ -16,13 +16,16 @@ const GameBoard = (() => {
 
   //Creating board in JS. Here a 2-D rowL x colL array will represent the Board
   //where tic-tac-toe is played. Each cell is created with another object ticCell
-
-  for (i = 0; i < rowL; i++) {
-    board[i] = [];
-    for (j = 0; j < colL; j++) {
-      board[i].push(ticCell());
+  function resetBoard() {
+    for (i = 0; i < rowL; i++) {
+      board[i] = [];
+      for (j = 0; j < colL; j++) {
+        board[i].push(ticCell());
+      }
     }
   }
+
+  resetBoard();
 
   const getBoard = () => board;
 
@@ -43,7 +46,7 @@ const GameBoard = (() => {
     console.table(boardVals);
   };
 
-  return { getBoard, markValues, displayBoard };
+  return { getBoard, resetBoard, markValues, displayBoard };
 })();
 
 //Function for a single cell inside game board
@@ -90,43 +93,51 @@ function playGame(playerOne = "Player One", playerTwo = "Player Two") {
     if (!isNaN(rowVal) && !isNaN(colVal)) {
       if (GameBoard.markValues(rowVal, colVal, _activePlayer.token)) {
         switchPlayer();
+        UIAction.setScoreBoard();
       } else {
         console.log("The cell is already filled. Choose another one...");
+        UIAction.setScoreBoard(
+          "The cell is already filled. Choose another one..."
+        );
       }
     }
     displayBoardAfterRound();
     console.log("Active Player:" + _activePlayer.name);
+
+    const winner = getWinner();
+    if (winner) {
+    }
   };
 
-  // const isGameOver = () => {
-  //   const board = gameBoard.getBoard();
-  //   // return;
+  const isGameOver = () => {
+    const b = GameBoard.getBoard();
+    // return;
 
-  //   const r1 = board.map(
-  //     row =>
-  //       row.reduce(
-  //         (won, cell) => {
-  //           const cellVal = cell.getCellValue();
-  //           if (cellVal !== 0) {
-  //             if (!won.won) {
-  //               return won;
-  //             } else {
-  //               if (won.element == cellVal || won.element == null) {
-  //                 return { won: true, element: cellVal };
-  //               }
-  //             }
-  //           } else {
-  //             return { won: false, element: cellVal };
-  //           }
-  //         },
-  //         { won: true, element: null }
-  //       )
-  //     //   console.log(c);
-  //   );
+    const r1 = b.map(
+      row =>
+        row.reduce(
+          (won, cell) => {
+            const cellVal = cell.getCellValue();
+            if (cellVal !== 0) {
+              if (!won.won) {
+                return won;
+              } else {
+                if (won.element == cellVal || won.element == null) {
+                  return { won: true, element: cellVal };
+                }
+              }
+            } else {
+              return { won: false, element: cellVal };
+            }
+          },
+          { won: true, element: null }
+        )
+      //   console.log(c);
+    );
 
-  //   console.log(r1.some(k => k.won));
-  //   console.log(r1.filter(k => k.won == true)[0].element);
-  // };
+    console.log(r1.some(k => k.won));
+    console.log(r1.filter(k => k.won == true)[0].element);
+  };
 
   const getRowColSum = () => {
     const board = GameBoard.getBoard();
@@ -181,49 +192,67 @@ function playGame(playerOne = "Player One", playerTwo = "Player Two") {
     playRound,
     getActivePlayer,
     displayBoardAfterRound,
-    getRowColSum,
+    getWinner,
   };
 }
 
 const UIAction = (function () {
-  const cell = $(".div-cell");
+  const $cell = $(".div-cell");
   const gridCont = $(".grid-cont");
+  const $msgBoard = $(".info-msg");
+  const $resetBtn = $(".reset-btn");
   const board = GameBoard.getBoard();
   const gameCtrl = playGame();
 
+  //bind elements
+  $(document).ready(() => {
+    $resetBtn.on("click", resetDOMBoardVals);
+    $cell.on("click", setDOMBoardVals);
+    renderDOMBoard();
+  });
+
+  //Functions for UI actions
   function renderDOMBoard() {
     for (let i = 0; i < 3; i++) {
       for (let j = 0; j < 3; j++) {
         const cellVal = board[i][j].getCellValue();
         if (cellVal == -2) {
-          cell[i * 3 + j].innerText = ":";
+          $cell[i * 3 + j].innerText = ":";
         } else if (cellVal == 1) {
-          cell[i * 3 + j].innerText = "O";
+          $cell[i * 3 + j].innerText = "O";
         } else if (cellVal == 2) {
-          cell[i * 3 + j].innerText = "X";
+          $cell[i * 3 + j].innerText = "X";
         }
       }
     }
-
   }
 
-  function setDOMBoardVals() {
-    cell.on("click", e => {
-      const c = e.target.getAttribute("data-id");
-      let i =  parseInt(c/3);
-      let j = c%3;
-      gameCtrl.playRound(i,j);
-      renderDOMBoard();
-    });
+  function resetDOMBoardVals() {
+    GameBoard.resetBoard();
+    renderDOMBoard();
+    console.log("RESET");
   }
 
-  function setScoreBoard(){
-
+  function setDOMBoardVals(e) {
+    const c = e.target.getAttribute("data-id");
+    let i = parseInt(c / 3);
+    let j = c % 3;
+    gameCtrl.playRound(i, j);
+    // setScoreBoard();
+    renderDOMBoard();
   }
 
-  renderDOMBoard();
-  setDOMBoardVals();
+  function setScoreBoard(message = "") {
+    if (message == "") {
+      $msgBoard.text(`Current Player: ${gameCtrl.getActivePlayer().token}`);
+    } else {
+      $msgBoard.text(message);
+    }
+  }
 
- 
+  //resetDOMBoardVals();
+  //setScoreBoard();
+  //setDOMBoardVals();
+
+  return { setScoreBoard };
 })();
-
