@@ -1,13 +1,57 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Library Demo</title>
-    <link rel="stylesheet" href="ld_styles.css">
+    <link rel="stylesheet" href="ld_styles.css" />
+    <link
+      href="https://fonts.googleapis.com/css?family=Open+Sans:400,700,800"
+      rel="stylesheet"
+    />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script src="ld_script.js" defer></script>
-</head>
-<body>
-    
-</body>
+  </head>
+  <body>
+    <div class="cont">
+      <header>LIBRARY APP</header>
+      <button class="add-book"><strong>&plus;</strong> ADD BOOK</button>
+      <table class="book-list-cont">
+        <thead>
+          <th>Name</th>
+          <th>Author</th>
+          <th>ID</th>
+        </thead>
+        <tr>
+          <td>Book1</td>
+          <td>Author1</td>
+          <td>1</td>
+        </tr>
+        <tr>
+          <td>Book1</td>
+          <td>Author1</td>
+          <td>1</td>
+        </tr>
+      </table>
+      <div class="modal">
+        <form action="" method="get">
+          <div class="name">
+            <label for="name">Name:</label>
+            <input type="text" name="" id="name" />
+          </div>
+          <div class="author">
+            <label for="author">Author:</label>
+            <input type="text" name="author" id="author" />
+          </div>
+          <div class="id">
+            <label for="id">ID:</label>
+            <input type="text" name="id" id="id" />
+          </div>
+          <div class="submit">
+            <button id="submit-btn" value="Submitted" disabled>Submit</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </body>
 </html>
