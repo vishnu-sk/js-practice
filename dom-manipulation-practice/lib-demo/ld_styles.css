@@ -1,22 +1,61 @@
 body {
     font-family: 'Open Sans', sans-serif;
     width: 100vw;
+    margin: 0;
   }
 
 .cont{
     width: 100%;
 }
 
+header{
+  display: block;
+  height: 80px;
+  font-size: 45px;
+  padding:  25px 50px 5px;
+  font-weight: 800;
+  letter-spacing: 5px;
+  color: #ddd;
+  background-color: brown;
+
+}
+
+.add-book{
+  display: block;
+  margin: 30px;
+  padding: 10px 50px;
+  font-size: 1em;
+  font-weight: 600;
+  border: 1px solid grey;
+  border-radius: 5px;
+}
+
+
+.add-book:hover{
+  background-color:rgb(163, 72, 72);
+  color: #ddd;
+  cursor: pointer;
+}
+
   table{
     table-layout: auto;
+    width: 300px;
     border: 1px solid dimgray;
     border-collapse: collapse;
-    margin: 20px 10px;
+    margin: 20px 30px;
   }
 
   td, th{
     padding: 5px 10px;
     border: 1px solid dimgray;
+  }
+
+  td{
+    width:100px;
+  }
+
+  td:last-of-type{
+    text-align: center;
   }
 
   th{
@@ -72,9 +111,6 @@ body {
     padding: 30px;  
   }
 
-  button:hover{
-    background-color: blueviolet;
-  }
 
   form > div{
     padding: 5px 0;
