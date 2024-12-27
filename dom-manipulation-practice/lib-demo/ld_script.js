@@ -31,11 +31,13 @@ const $modal = $(".modal");
 const $submitBtn = $("#submit-btn");
 const $form = $("form");
 const $table = $(".book-list-cont");
+const $readBox = $("td > input");
 
-//$(document).on("click", hideModal);
+//Adding Event handlers
 $addBookBtn.click(showModal);
 $closeModalBtn.click(hideModal);
 $submitBtn.click(getFormValues);
+$readBox.click(changeReadRowTextStyle);
 
 function showModal(e) {
   $modal.fadeIn(10).css("display", "flex");
@@ -84,6 +86,16 @@ function tableRowFactory(values){
   const checkBox = $("<input>");
   checkBox.attr("type", "checkbox");
   checkBox.attr("data-rowId", values[2]);
+  checkBox.click(changeReadRowTextStyle);
   row.append($("<td></td>").append(checkBox));
   $table.append(row);
+}
+
+function changeReadRowTextStyle(e){
+  console.log(e.target +"  -  "+ e.target.checked);
+  if(e.target.checked == true){
+    $(e.target).closest("tr").find("td").css("text-decoration", "line-through");}
+  else{
+    $(e.target).closest("tr").find("td").css("text-decoration", "none");
+  }
 }
