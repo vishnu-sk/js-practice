@@ -30,7 +30,7 @@ const $closeModalBtn = $(".close-btn");
 const $modal = $(".modal");
 const $submitBtn = $("#submit-btn");
 const $form = $("form");
-const $table = $("book-list-cont");
+const $table = $(".book-list-cont");
 
 //$(document).on("click", hideModal);
 $addBookBtn.click(showModal);
@@ -71,9 +71,19 @@ function getFormValues(e) {
 
 function addFormValToBookList(values) {
   addBookToLibrary(Book(...values));
+  tableRowFactory(values);
   displayBooks();
 }
 
-function updateUITable(){
-
+function tableRowFactory(values){
+  const row = $("<tr></tr>");
+  for(let val of values){
+    const rowData = $("<td></td>").text(val);
+    row.append(rowData);
+  }
+  const checkBox = $("<input>");
+  checkBox.attr("type", "checkbox");
+  checkBox.attr("data-rowId", values[2]);
+  row.append($("<td></td>").append(checkBox));
+  $table.append(row);
 }
