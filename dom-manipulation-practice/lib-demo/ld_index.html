@@ -34,23 +34,27 @@
         </tr>
       </table>
       <div class="modal">
-        <form action="" method="get">
-          <div class="name">
-            <label for="name">Name:</label>
-            <input type="text" name="" id="name" />
-          </div>
-          <div class="author">
-            <label for="author">Author:</label>
-            <input type="text" name="author" id="author" />
-          </div>
-          <div class="id">
-            <label for="id">ID:</label>
-            <input type="text" name="id" id="id" />
-          </div>
-          <div class="submit">
-            <button id="submit-btn" value="Submitted" disabled>Submit</button>
-          </div>
-        </form>
+        <div class="form-cont">
+          <span class="close-btn">X</span>
+          <span>Add Book Details</span>
+          <form action="" method="get">
+            <div class="name">
+              <label for="name">Name:</label>
+              <input type="text" name="" id="name" placeholder="Enter Book name.."/>
+            </div>
+            <div class="author">
+              <label for="author">Author:</label>
+              <input type="text" name="author" id="author" placeholder="Enter author name.."/>
+            </div>
+            <div class="bookId">
+              <label for="bookId">ID:</label>
+              <input type="text" name="bookId" id="bookId" placeholder="Enter Book ID number.."/>
+            </div>
+            <div class="submit">
+              <button id="submit-btn" value="Submitted">Submit</button>
+            </div>
+          </form>
+        </div>
       </div>
     </div>
   </body>

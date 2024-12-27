@@ -33,22 +33,99 @@ body {
     height: 100%;
     justify-content: center;
     z-index: 1;
+    background-color: rgba(136, 136, 136, 0.404);
+  }
+
+  .modal span{
+    padding: 0px 30px;
+    font-size: 1.2em;
+    font-weight: 900;
+  }
+
+  .modal  .close-btn{
+    align-self: flex-end;
+    padding: 5px 12px;
+
+    &:hover{
+      color: brown;
+      cursor: pointer;
+    }
+  }
+
+  .form-cont{
+    display: flex;
+    flex-direction: column;
+    align-self: center;
+    height: fit-content;
+    width: 460px;
+    border-radius: 10px;
+    box-shadow: 2px 2px 8px lightgray;
+    overflow: hidden;
+    background-color: aliceblue;
   }
 
   form{
-    position: relative;
-    top: 40%;
-    transform: translateY(-50%); 
     justify-content: center;
     align-content: center;
-    width: 400px;
     height: fit-content;
-    padding: 30px;
-    background-color: aliceblue;
-    border-radius: 10px;
-    box-shadow: 2px 2px 8px lightgray;
+    width: calc(100%-30px);
+    padding: 30px;  
   }
 
   button:hover{
     background-color: blueviolet;
+  }
+
+  form > div{
+    padding: 5px 0;
+    display: grid;
+    grid-template-columns: 20% 1fr;
+    gap: 5px
+  }
+
+  div > label{
+    background-color: inherit;
+    /* min-width: 200px; */
+  }
+
+  div >input {
+    display: inline-block;
+    border-radius: 1px;
+    border: 1px solid darkgrey;
+    padding: 2px;
+    /* max-width: 100%; */
+  }
+
+  input:placeholder-shown{
+    color: brown;
+    padding-left: 10px;
+  }
+
+
+  form button{
+    width: 50%;
+    grid-column: 1/3;
+    justify-self: center;
+    margin-top: 20px;
+    border-radius: 5px;
+    border: 1px solid dimgray;
+    font-weight: 900;
+    letter-spacing: 0.8px;
+    padding: 5px 0;
+
+    &:hover{
+      background-color: dimgray;
+      color: aliceblue;
+      cursor: pointer;
+    }
+
+    &:disabled{
+      background-color: lightgrey;
+      color: grey;
+      border-color: gray;
+    }
+
+    &:disabled:hover{
+      cursor: not-allowed;
+    }
   }
