@@ -54,13 +54,28 @@ header{
     width:100px;
   }
 
-  td:last-of-type{
+  td:nth-child(4){
     text-align: center;
   }
 
   th{
     border: 1px solid black;
     background-color: rgb(184, 232, 248);
+  }
+
+  .remove-btn{
+    padding: 5px 10px;
+    font-size: 0.8em;
+    font-weight: 600;
+    border: none;
+    border-radius: 5px;
+    background-color: rgb(163, 72, 72);
+    color: #eee;
+  }
+
+  .remove-btn:hover{
+    background-color: brown;
+    cursor: pointer;
   }
 
   .modal{

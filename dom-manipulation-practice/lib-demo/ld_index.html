@@ -20,20 +20,23 @@
         <thead>
           <th>Name</th>
           <th>Author</th>
-          <th>ID</th>
+          <th>Pages</th>
           <th>Read?</th>
+          <th>Remove</th>
         </thead>
         <tr>
           <td>Book1</td>
           <td>Author1</td>
           <td>1</td>
-          <td><input type="checkbox" name="" data-rowId="1"></td>
+          <td><input type="checkbox" name="" data-rowId="1a"></td>
+          <td><button class="remove-btn">Remove</button></td>
         </tr>
         <tr>
           <td>Book2</td>
           <td>Author2</td>
           <td>2</td>
-          <td><input type="checkbox" name="" data-rowId="2"></td>
+          <td><input type="checkbox" name="" data-rowId="2a"></td>
+          <td><button class="remove-btn">Remove</button></td>
         </tr>
       </table>
       <div class="modal">
@@ -43,15 +46,15 @@
           <form action="" method="get">
             <div class="name">
               <label for="name">Name:</label>
-              <input type="text" name="name" id="name" placeholder="Enter Book name.."/>
+              <input type="text" name="name" id="name" required placeholder="Enter Book name.."/>
             </div>
             <div class="author">
               <label for="author">Author:</label>
-              <input type="text" name="author" id="author" placeholder="Enter author name.."/>
+              <input type="text" name="author" id="author" required placeholder="Enter author name.."/>
             </div>
-            <div class="bookId">
-              <label for="bookId">ID:</label>
-              <input type="text" name="bookId" id="bookId" placeholder="Enter Book ID number.."/>
+            <div class="pageId">
+              <label for="pageId">Pages:</label>
+              <input type="text" name="pageId" id="pageId" placeholder="Enter number of book pages."/>
             </div>
             <div class="submit">
               <button id="submit-btn" value="Submitted">Submit</button>
