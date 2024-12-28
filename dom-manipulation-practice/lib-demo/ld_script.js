@@ -1,7 +1,31 @@
 const myLibrary = [];
 
-function Book(name, author, id) {
-  return { name, author, id };
+function createBookFactory() {
+  let counter = 2;
+  return function Book(name, author, pages) {
+    let readStatus = false;
+    const idGen = () => {
+      console.log("count:" + counter);
+      return counter++;
+    };
+    const id = idGen();
+    const changeReadStatus = () => {
+      console.log("st : " + readStatus);
+      readStatus = !readStatus;
+      console.log("st : " + readStatus);
+    };
+    console.log(id);
+    return {
+      name,
+      author,
+      pages,
+      id,
+      get readStatus() {
+        return readStatus;
+      },
+      changeReadStatus,
+    };
+  };
 }
 
 function addBookToLibrary(book) {
@@ -12,10 +36,12 @@ function displayBooks() {
   console.table(myLibrary);
 }
 
+const Book = createBookFactory();
 book1 = Book("book1", "author1", 1);
 book2 = Book("book2", "author2", 2);
 book3 = Book("book3", "author3", 3);
 book4 = Book("book4", "author4", 4);
+const booklist = [book1, book2, book3, book4];
 
 addBookToLibrary(book1);
 addBookToLibrary(book2);
@@ -36,8 +62,13 @@ const $readBox = $("td > input");
 //Adding Event handlers
 $addBookBtn.click(showModal);
 $closeModalBtn.click(hideModal);
-$submitBtn.click(getFormValues);
+//$submitBtn.click(getFormValues);
+$form.on("submit", getFormValues);
 $readBox.click(changeReadRowTextStyle);
+
+for (let book of booklist) {
+  tableRowFactory(book);
+}
 
 function showModal(e) {
   $modal.fadeIn(10).css("display", "flex");
@@ -58,13 +89,13 @@ function hideModal(e, override = false) {
 }
 
 function getFormValues(e) {
-  const inputNames = ["name", "author", "bookId"];
+  const inputNames = ["name", "author", "pageId"];
   const formVals = [];
   e.preventDefault();
   console.log("Event Default prevented: " + e.isDefaultPrevented());
   for (let i of inputNames) {
     console.log($(`input[name=${i}]`).val());
-    formVals.push($(`input[name=${i}`).val());
+    formVals.push($(`input[name=${i}]`).val());
   }
   addFormValToBookList(formVals);
   hideModal(e, true);
@@ -72,30 +103,43 @@ function getFormValues(e) {
 }
 
 function addFormValToBookList(values) {
-  addBookToLibrary(Book(...values));
-  tableRowFactory(values);
+  const newBook = Book(...values);
+  addBookToLibrary(newBook);
+  tableRowFactory(newBook);
   displayBooks();
 }
 
-function tableRowFactory(values){
+function tableRowFactory(newBook) {
   const row = $("<tr></tr>");
-  for(let val of values){
+  const bookValues = Object.values(newBook);
+  const values = bookValues.slice(0, 3);
+  for (let val of values) {
     const rowData = $("<td></td>").text(val);
     row.append(rowData);
   }
-  const checkBox = $("<input>");
-  checkBox.attr("type", "checkbox");
-  checkBox.attr("data-rowId", values[2]);
+  const checkBox = $("<input>").attr("type", "checkbox");
+  checkBox.attr("data-rowId", bookValues[3]);
   checkBox.click(changeReadRowTextStyle);
   row.append($("<td></td>").append(checkBox));
+  const removeButton = $("<button class='remove-btn'></button>").text("Remove");
+  row.append($("<td></td>").append(removeButton));
   $table.append(row);
 }
 
-function changeReadRowTextStyle(e){
-  console.log(e.target +"  -  "+ e.target.checked);
-  if(e.target.checked == true){
-    $(e.target).closest("tr").find("td").css("text-decoration", "line-through");}
-  else{
-    $(e.target).closest("tr").find("td").css("text-decoration", "none");
+function changeReadRowTextStyle(e) {
+  const k = $(e.target).attr("data-rowId");
+  const index = myLibrary.findIndex(item => item.id == k);
+  myLibrary[index].changeReadStatus();
+  console.log(Object.values(myLibrary[index]));
+  console.log(e.target + "  -  " + e.target.checked);
+  const closestParentRow = $(e.target).closest("tr");
+  if (e.target.checked == true) {
+    closestParentRow.find("td").css("text-decoration", "line-through");
+  } else {
+    closestParentRow.find("td").css("text-decoration", "none");
   }
+}
+
+function removeRow(){
+  
 }
