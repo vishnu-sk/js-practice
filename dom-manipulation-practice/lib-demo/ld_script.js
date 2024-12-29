@@ -1,7 +1,31 @@
-const myLibrary = [];
+const key = "BookList";
 
-function createBookFactory() {
-  let counter = 2;
+const localStorageMethods = (() => {
+  const addToLocalStorage = key => {
+    localStorage.setItem(key, JSON.stringify(myLibrary));
+    console.log("Array stored in loacl storage");
+  };
+
+  const getFromLocalStorage = key => {
+    return JSON.parse(localStorage.getItem(key)) || [];
+  };
+
+  const initializeBookArray = (key, bookGen) => {
+    const libArray = getFromLocalStorage(key);
+    const bookObjArray = [];
+    libArray.forEach(item => {
+      const bookVals = Object.values(item);
+      console.log(bookVals);
+      bookObjArray.push(bookGen(bookVals[0], bookVals[1], bookVals[2]));
+    });
+    return bookObjArray;
+  };
+
+  return { initializeBookArray, getFromLocalStorage, addToLocalStorage };
+})();
+
+function createBookFactory(existingCount = 0) {
+  let counter = existingCount + 1;
   return function Book(name, author, pages) {
     let readStatus = false;
     const idGen = () => {
@@ -30,6 +54,7 @@ function createBookFactory() {
 
 function addBookToLibrary(book) {
   myLibrary.push(book);
+  localStorageMethods.addToLocalStorage(key);
 }
 
 function displayBooks() {
@@ -37,18 +62,7 @@ function displayBooks() {
 }
 
 const Book = createBookFactory();
-book1 = Book("book1", "author1", 1);
-book2 = Book("book2", "author2", 2);
-book3 = Book("book3", "author3", 3);
-book4 = Book("book4", "author4", 4);
-const booklist = [book1, book2, book3, book4];
-
-addBookToLibrary(book1);
-addBookToLibrary(book2);
-addBookToLibrary(book3);
-addBookToLibrary(book4);
-
-displayBooks();
+const myLibrary = localStorageMethods.initializeBookArray(key, Book);
 
 //cacheDOM
 const $addBookBtn = $(".add-book");
@@ -62,18 +76,21 @@ const $readBox = $("td > input");
 //Adding Event handlers
 $addBookBtn.click(showModal);
 $closeModalBtn.click(hideModal);
-//$submitBtn.click(getFormValues);
 $form.on("submit", getFormValues);
 $readBox.click(changeReadRowTextStyle);
 
-for (let book of booklist) {
-  tableRowFactory(book);
+// Initializing DOM from localStorage
+initializeDOM();
+
+function initializeDOM() {
+  myLibrary.forEach(book => tableRowFactory(book));
+  console.log("HOLAAAAAAAAAAA");
 }
 
 function showModal(e) {
   $modal.fadeIn(10).css("display", "flex");
   $(document).on("click", hideModal);
-  console.log("hey");
+  //console.log("hey");
 }
 
 function hideModal(e, override = false) {
@@ -92,9 +109,8 @@ function getFormValues(e) {
   const inputNames = ["name", "author", "pageId"];
   const formVals = [];
   e.preventDefault();
-  console.log("Event Default prevented: " + e.isDefaultPrevented());
+  //console.log("Event Default prevented: " + e.isDefaultPrevented());
   for (let i of inputNames) {
-    console.log($(`input[name=${i}]`).val());
     formVals.push($(`input[name=${i}]`).val());
   }
   addFormValToBookList(formVals);
@@ -118,15 +134,23 @@ function tableRowFactory(newBook) {
     row.append(rowData);
   }
   const checkBox = $("<input>").attr("type", "checkbox");
-  checkBox.attr("data-rowId", bookValues[3]);
+  checkBox.attr("data-rowId", bookValues[3]).attr("id", bookValues[3]);
+  const labelToggle = $("<label class='toggle-read'></label>").attr(
+    "for",
+    bookValues[3]
+  );
   checkBox.click(changeReadRowTextStyle);
-  row.append($("<td></td>").append(checkBox));
+  row.append($("<td></td>").append(checkBox).append(labelToggle));
   const removeButton = $("<button class='remove-btn'></button>").text("Remove");
+  removeButton.attr("data-rowId", bookValues[3]);
+  removeButton.click(removeRow);
   row.append($("<td></td>").append(removeButton));
   $table.append(row);
 }
 
+let m;
 function changeReadRowTextStyle(e) {
+  m = $(e.target).attr("data-rowId");
   const k = $(e.target).attr("data-rowId");
   const index = myLibrary.findIndex(item => item.id == k);
   myLibrary[index].changeReadStatus();
@@ -140,6 +164,12 @@ function changeReadRowTextStyle(e) {
   }
 }
 
-function removeRow(){
-  
+function removeRow(e) {
+  const k = $(e.target).attr("data-rowId");
+  const index = myLibrary.findIndex(item => item.id == k);
+  myLibrary.splice(index, 1);
+  localStorageMethods.addToLocalStorage(key);
+  const closestParentRow = $(e.target).closest("tr");
+  closestParentRow.remove();
+  displayBooks();
 }
