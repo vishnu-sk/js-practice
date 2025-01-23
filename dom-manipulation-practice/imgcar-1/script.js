@@ -28,3 +28,5 @@ function Move(e, right = true) {
     points[index].classList.add("highlight");
     imgCont.style.left = leftVal + "px";
 }
+
+setInterval(Move,3000);
