@@ -1,0 +1,113 @@
+html, body{
+    height: 100%; width: 100%;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    font-size: 12px;
+}
+
+*{
+    padding: 0; margin: 0;
+}
+
+.cont{
+    width: 100%;
+    /*height: 100%;*/
+    box-sizing: border-box;
+    padding: 2rem;
+    margin: 0 auto;
+}
+
+.image-cont{
+    display: inline;
+    width: 800px;
+    height: 500px;
+    overflow: hidden;
+    padding: 0.2rem;
+    flex: 1 0 800px;
+    position: relative;
+}
+
+img{
+    width: 100%;
+    aspect-ratio: 8/5;
+    object-fit: cover;
+    object-position: center;
+}
+
+.image-slide{
+    display: flex; 
+    align-items: center;
+    background-color: blanchedalmond;
+    position: relative;
+}
+
+.trans{
+    transition: all 0.5s ease-in-out;
+    transform: translateX(-5px);
+}
+
+.image-window{
+    width: 100%;
+    height: 100%;
+    background-color: aliceblue;
+    overflow: hidden;
+}
+
+.carousel{
+    width: 800px; 
+    height: 500px; position: relative;
+}
+
+.move{
+    position: absolute;
+    top: 50%;
+    z-index: 2;
+}
+
+.right-arrow{
+    right: -2rem;
+}
+
+.left-arrow{left: -2rem;}
+
+.move button{
+    padding: 2rem;
+    border-radius: 2rem;
+    border: 1px solid gray;
+    background-color: blueviolet;
+    font-weight: 900;
+    color: aliceblue;
+
+    &:hover{
+        background-color: azure;
+        color: black;
+        cursor: pointer;
+    }
+}
+
+.bottom-point{
+    height: 50px;
+    width: 100%;
+    padding: 0 33%;
+    box-sizing: border-box;
+    /* background-color: red; */
+    position: absolute;
+    z-index: 1;
+    bottom: 1px;
+    display: flex;
+    justify-content: space-evenly;
+
+}
+
+.point{
+    height: 20px;
+    aspect-ratio: 1;
+    border-radius: 10px;
+    background-color: aliceblue;
+    box-shadow: 1px 1px 10px dimgray;
+}
+
+.point.highlight{
+    background-color: greenyellow;
+    box-shadow: 0px 0px 10px yellow;
+    border:2px solid green;    
+}
